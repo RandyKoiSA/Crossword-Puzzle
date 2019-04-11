@@ -185,6 +185,8 @@ class MainController : UIViewController, UITextFieldDelegate{
     
     @IBOutlet var horizontalButton: UIButton!
     @IBOutlet var verticalButton: UIButton!
+    var selectedNumber: Int = 0
+    var currentButton: CustomButton!
     var isHorizontal : Bool = true
     
     required init?(coder aDecoder: NSCoder) {
@@ -208,7 +210,10 @@ class MainController : UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        //testing
+        // highlight horizontal button
+        horizontalButton.backgroundColor = UIColor.yellow
+        
+        // testing
         buttonStore.loadLevel(levelStore.levelOneString())
         buttonStore.loadCornerNumber(levelStore.numberPosition)
     }
@@ -216,9 +221,31 @@ class MainController : UIViewController, UITextFieldDelegate{
     
     @IBAction func horizontalPressed(_ sender: Any) {
         isHorizontal = true
+        horizontalButton.isEnabled = false
+        verticalButton.isEnabled = true
+        
+        horizontalButton.backgroundColor = UIColor.yellow
+        verticalButton.backgroundColor = UIColor.lightGray
+        
+        if let button = currentButton {
+            let identifier : String = button.accessibilityIdentifier ?? ""
+            buttonStore.removeHighlights()
+            buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
+        }
     }
     @IBAction func verticalPressed(_ sender: Any) {
         isHorizontal = false
+        horizontalButton.isEnabled = true
+        verticalButton.isEnabled = false
+        
+        horizontalButton.backgroundColor = UIColor.lightGray
+        verticalButton.backgroundColor = UIColor.yellow
+        
+        if let button = currentButton {
+            let identifier : String = button.accessibilityIdentifier ?? ""
+            buttonStore.removeHighlights()
+            buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
+        }
     }
     
     // Add all buttons to have buttonIsPress action
@@ -262,6 +289,13 @@ class MainController : UIViewController, UITextFieldDelegate{
             let identifier : String = button.accessibilityIdentifier ?? ""
             buttonStore.removeHighlights()
             buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
+            
+            // set currentButton to this one
+            currentButton = button
+            if (button.number != 0){
+                selectedNumber = button.number
+                
+            }
         }
         return true
     }
@@ -290,15 +324,26 @@ class MainController : UIViewController, UITextFieldDelegate{
             }
             else {
                 nextButton.textField.becomeFirstResponder()
+                
+                currentButton = nextButton
             }
         }
         
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
+        print("\(self.view.frame.height)")
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
+                var buttonView = currentButton.superview?.frame.origin.y ?? 0
+                // self.view.frame.origin.y -= keyboardSize.height
+                if (buttonView > 150) {
+                    buttonView = 150
+                }
+
+                self.view.frame.origin.y -= buttonView
+                
+                // print("\(buttonView)")
             }
         }
     }
