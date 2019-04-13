@@ -36,7 +36,6 @@ class ButtonStore {
         
         // add button to the list
         allButtons.append(myButton)
-        
     }
     
     
@@ -49,7 +48,14 @@ class ButtonStore {
         return allButtons[Index]
     }
     
-    func getButton(row: Character, column: Int, isHorizontal: Bool) -> CustomButton{
+    func getButton(row: Character, column: Int) -> CustomButton{
+        var currentIndex: Int
+        let row: Int = letterToNum[convertLetter(row)]!
+        currentIndex = column + (13 * row) - 1
+        return getButton(atIndex: currentIndex)
+    }
+    
+    func getNextButton(row: Character, column: Int, isHorizontal: Bool) -> CustomButton{
         var currentIndex : Int
         var nextIndex : Int = column
         let row : Int = letterToNum[convertLetter(row)]!
@@ -86,10 +92,45 @@ class ButtonStore {
                 return getButton(atIndex: currentIndex)
             }
             else {
-                return getButton(atIndex: nextIndex)
+                return nextButton
             }
         }
+    }
+    
+    func getPrevButton(row: Character, column: Int, isHorizontal: Bool) -> CustomButton {
+        var currentIndex : Int
+        var prevIndex : Int = column
+        let row : Int = letterToNum[convertLetter(row)]!
+        var prevButton : CustomButton
         
+        currentIndex = column + (13 * row) - 1
+
+        if(column == 1 && isHorizontal){
+            return getButton(atIndex: currentIndex)
+        } else if(row == 0 && !isHorizontal){
+            return getButton(atIndex: currentIndex)
+        }
+        
+        if isHorizontal {
+            prevIndex = currentIndex - 1
+            prevButton = getButton(atIndex: prevIndex)
+            if(prevButton.backgroundColor == UIColor.black){
+                return getButton(atIndex: currentIndex)
+            } else {
+                return prevButton
+            }
+        } else {
+            prevIndex = currentIndex - 13
+            if prevIndex < 0 {
+                prevIndex = currentIndex
+            }
+            prevButton = getButton(atIndex: prevIndex)
+            if prevButton.backgroundColor == UIColor.black{
+                return getButton(atIndex: currentIndex)
+            } else {
+                return prevButton
+            }
+        }
     }
     
     func highlightRowColumn(identifier: String, _ isHorizontal: Bool){
@@ -97,49 +138,67 @@ class ButtonStore {
             return
         }
         else {
-            var tempIdentifier : String = identifier
-            let row : Character = identifier.first!
-            tempIdentifier.removeFirst()
-            let column : Int = Int(tempIdentifier)!
+            // break the identifier with row and column
+            var buttonInfo : (row: Character, column: Int) = parseIdentifier(identifier: identifier)
+            // use the identifier information to geth the button that was pressed
+            var currentButton = getButton(row: buttonInfo.row, column: buttonInfo.column)
+            var prevButton = getPrevButton(row: buttonInfo.row, column: buttonInfo.column, isHorizontal: isHorizontal)
             
-            for button in allButtons {
-                var identifierButton : String = button.accessibilityIdentifier ?? ""
-                
-                if isHorizontal{
-                    // Highlighting the rows
-                    let rowStore : Character = identifierButton.first!
-                    // Check if the Letter Matches
-                    if row == rowStore {
-                        if button.backgroundColor != UIColor.black{
-                            button.backgroundColor = UIColor.yellow
-                        }
-                    }
-                } else {
-                    // Highlighting the columns
-                    identifierButton.removeFirst()
-                    let columnStore : Int = Int(identifierButton)!
-                    
-                    if column == columnStore {
-                        if button.backgroundColor != UIColor.black{
-                            button.backgroundColor = UIColor.yellow
-                        }
-                    }
-                }
+            // find the number corresponding the grid depending on across or down
+            while(currentButton != prevButton){
+                currentButton = prevButton
+                buttonInfo = parseIdentifier(identifier: prevButton.accessibilityIdentifier!)
+                prevButton = getPrevButton(row: buttonInfo.row, column: buttonInfo.column, isHorizontal: isHorizontal)
+            }
+            print(currentButton.number)
+            
+            // highlights the grid corresponding to the number and across or down
+            while(currentButton.backgroundColor == UIColor.white.withAlphaComponent(0.7)){
+                currentButton.backgroundColor = UIColor.yellow.withAlphaComponent(0.7)
+                currentButton = getNextButton(identifier: currentButton.accessibilityIdentifier!, isHorizontal: isHorizontal)
             }
         }
     }
     
+    func findButtonWithNumber(currentButton: CustomButton, isHorizontal: Bool) -> CustomButton {
+        var cButton: CustomButton = currentButton
+        var buttonInfo: (row: Character, column: Int) = parseIdentifier(identifier: currentButton.accessibilityIdentifier!)
+        var prevButton = getPrevButton(row: buttonInfo.row, column: buttonInfo.column, isHorizontal: isHorizontal)
+        
+        // find the number corresponding the grid depending on across or down
+        while(cButton != prevButton){
+            cButton = prevButton
+            buttonInfo = parseIdentifier(identifier: prevButton.accessibilityIdentifier!)
+            prevButton = getPrevButton(row: buttonInfo.row, column: buttonInfo.column, isHorizontal: isHorizontal)
+        }
+        
+        return cButton
+    }
+    
+    // pases the accessibilityIdentifier to a readable row and column
+    func parseIdentifier(identifier: String) -> (row: Character, column: Int){
+        var tempIdentifier : String = identifier
+        let rowChar : Character = identifier.first!
+        tempIdentifier.removeFirst()
+        let columnInt : Int = Int(tempIdentifier)!
+        
+        return (rowChar, columnInt)
+    }
+    
+    // remove all yellow highlights
     func removeHighlights(){
         for button in allButtons {
-            if button.backgroundColor == UIColor.yellow{
-               button.backgroundColor = UIColor.white
+            if button.backgroundColor == UIColor.yellow.withAlphaComponent(0.7){
+               button.backgroundColor = UIColor.white.withAlphaComponent(0.7)
             }
         }
     }
     
+    // removed all the O's that is in the Main Story Board
     func clearTitleText(){
         for button in allButtons{
             button.setTitle("", for: .normal)
+            button.backgroundColor = UIColor.white.withAlphaComponent(0.7)
         }
     }
     
@@ -152,7 +211,7 @@ class ButtonStore {
         
         let column : Int = Int(index)!
         
-        button = getButton(row: row, column: column, isHorizontal: isHorizontal)
+        button = getNextButton(row: row, column: column, isHorizontal: isHorizontal)
         
         // check if the box is black, if so go back to previous button
 
@@ -164,7 +223,9 @@ class ButtonStore {
         var iter : Int = 0
         for char in string{
             if char == "-" && char != "\n"{
-                getButton(atIndex: iter).backgroundColor = UIColor.black
+                let button = getButton(atIndex: iter)
+                button.backgroundColor = UIColor.black
+                button.isEnabled = false
             }else {
                 getButton(atIndex: iter).textField.text = ""
             }

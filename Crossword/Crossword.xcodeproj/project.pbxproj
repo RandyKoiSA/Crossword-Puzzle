@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		255721B62262970C00BE856E /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255721B52262970C00BE856E /* MenuController.swift */; };
 		25F32772225ABEDA00E8552A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F32771225ABEDA00E8552A /* AppDelegate.swift */; };
 		25F32777225ABEDA00E8552A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25F32775225ABEDA00E8552A /* Main.storyboard */; };
 		25F32779225ABEDD00E8552A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25F32778225ABEDD00E8552A /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		255721B52262970C00BE856E /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		25F3276E225ABEDA00E8552A /* Crossword.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Crossword.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25F32771225ABEDA00E8552A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25F32776225ABEDA00E8552A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -43,6 +45,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		255721B72262971800BE856E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				25F32787225ADC4B00E8552A /* MainController.swift */,
+				255721B52262970C00BE856E /* MenuController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		255721B82262973000BE856E /* datasource */ = {
+			isa = PBXGroup;
+			children = (
+				25F32785225AD9FE00E8552A /* ButtonStore.swift */,
+				25F32789225C1E6900E8552A /* LevelStore.swift */,
+			);
+			path = datasource;
+			sourceTree = "<group>";
+		};
 		25F32765225ABEDA00E8552A = {
 			isa = PBXGroup;
 			children = (
@@ -63,15 +83,14 @@
 			isa = PBXGroup;
 			children = (
 				25F32771225ABEDA00E8552A /* AppDelegate.swift */,
-				25F32787225ADC4B00E8552A /* MainController.swift */,
+				255721B72262971800BE856E /* Controllers */,
 				25F32775225ABEDA00E8552A /* Main.storyboard */,
 				25F32778225ABEDD00E8552A /* Assets.xcassets */,
 				25F3277A225ABEDD00E8552A /* LaunchScreen.storyboard */,
 				25F3277D225ABEDD00E8552A /* Info.plist */,
 				25F32783225AC31200E8552A /* CustomButton.swift */,
-				25F32785225AD9FE00E8552A /* ButtonStore.swift */,
 				25F3278B225C683400E8552A /* CrosswordEnum.swift */,
-				25F32789225C1E6900E8552A /* LevelStore.swift */,
+				255721B82262973000BE856E /* datasource */,
 			);
 			path = Crossword;
 			sourceTree = "<group>";
@@ -148,6 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25F3278C225C683400E8552A /* CrosswordEnum.swift in Sources */,
+				255721B62262970C00BE856E /* MenuController.swift in Sources */,
 				25F32786225AD9FE00E8552A /* ButtonStore.swift in Sources */,
 				25F32772225ABEDA00E8552A /* AppDelegate.swift in Sources */,
 				25F3278A225C1E6900E8552A /* LevelStore.swift in Sources */,

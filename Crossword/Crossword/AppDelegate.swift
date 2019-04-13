@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Access the MainController and set its buttonStore
         let navController = window!.rootViewController as! UINavigationController
+        
         let mainController = navController.topViewController as! MainController
         mainController.buttonStore = buttonStore
         mainController.levelStore = levelStore

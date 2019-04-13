@@ -24,7 +24,7 @@ class LevelStore {
          9: (.C, 7, .across), 10: (.E, 1, .across), 11: (.E, 9, .across), 12: (.G, 1, .across),
          13: (.G, 3, .down), 14: (.G, 8, .across), 15: (.G, 9, .down),
          16: (.G, 13, .down), 17: (.H, 7, .down), 18: (.I, 1, .both), 19: (.I, 5, .down),
-         20: (.I, 7, .across), 21: (.I, 11, .down), 22: (.K, 11, .across), 23: (.K, 9, .across),
+         20: (.I, 7, .across), 21: (.I, 11, .down), 22: (.K, 1, .across), 23: (.K, 9, .across),
          24: (.M, 1, .across), 25: (.M, 7, .across)]
     
     func levelOneString() -> String {

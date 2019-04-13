@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G1Z-bc-Cqo">
-                                <rect key="frame" x="0.0" y="118.5" width="414" height="390"/>
+                                <rect key="frame" x="0.0" y="108.5" width="414" height="390"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XMu-cW-X7K">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -2875,7 +2875,7 @@
                                 <viewLayoutGuide key="safeArea" id="xud-Ca-FXm"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crossword #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLd-yn-t2G">
-                                <rect key="frame" x="8" y="88" width="406" height="20.5"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2925,9 +2925,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="G1Z-bc-Cqo" secondAttribute="trailing" id="feJ-nD-MMV"/>
                             <constraint firstItem="Mnk-VI-Dv6" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="fj6-nz-eLr"/>
                             <constraint firstItem="kLd-yn-t2G" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="mdO-Rg-9YX"/>
-                            <constraint firstItem="G1Z-bc-Cqo" firstAttribute="top" secondItem="kLd-yn-t2G" secondAttribute="bottom" constant="10" id="t76-eE-4pe"/>
+                            <constraint firstItem="G1Z-bc-Cqo" firstAttribute="top" secondItem="kLd-yn-t2G" secondAttribute="bottom" id="t76-eE-4pe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="m7j-ZZ-ux2" secondAttribute="trailing" id="uSx-8v-xgm"/>
-                            <constraint firstItem="kLd-yn-t2G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="xA9-VW-oGI"/>
+                            <constraint firstItem="kLd-yn-t2G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xA9-VW-oGI"/>
                             <constraint firstItem="G1Z-bc-Cqo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yxO-5Z-b47"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -3106,7 +3106,9 @@
                         <outlet property="M7" destination="u4i-rs-vzk" id="arg-P9-Ndy"/>
                         <outlet property="M8" destination="vkK-6R-DBN" id="Da6-wa-LAH"/>
                         <outlet property="M9" destination="iHN-yF-Dsn" id="pqC-oW-33e"/>
+                        <outlet property="hintLabel" destination="m7j-ZZ-ux2" id="0En-aE-YfB"/>
                         <outlet property="horizontalButton" destination="BDN-Ru-apS" id="p6N-uC-B6B"/>
+                        <outlet property="titleLabel" destination="kLd-yn-t2G" id="7LF-ti-lIh"/>
                         <outlet property="verticalButton" destination="oT2-mZ-sdx" id="6bw-Br-ZNK"/>
                     </connections>
                 </viewController>
@@ -3117,7 +3119,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="957.97101449275374" y="20.758928571428569"/>
+            <point key="canvasLocation" x="1859" y="21"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OSe-DG-nwm">
@@ -3130,12 +3132,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="kzb-y4-WcN"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4VL-ut-L2R"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9z0-Pf-hog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="241" y="21"/>
+            <point key="canvasLocation" x="-259" y="21"/>
         </scene>
     </scenes>
 </document>

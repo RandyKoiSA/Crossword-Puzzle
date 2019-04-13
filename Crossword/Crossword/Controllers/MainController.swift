@@ -9,8 +9,8 @@
 import UIKit
 
 class MainController : UIViewController, UITextFieldDelegate{
-    var buttonStore : ButtonStore!
-    var levelStore : LevelStore!
+    var buttonStore : ButtonStore = ButtonStore()
+    var levelStore : LevelStore = LevelStore()
     
     @IBOutlet var A1 : CustomButton!
     @IBOutlet var A2 : CustomButton!
@@ -185,6 +185,9 @@ class MainController : UIViewController, UITextFieldDelegate{
     
     @IBOutlet var horizontalButton: UIButton!
     @IBOutlet var verticalButton: UIButton!
+    @IBOutlet var hintLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    
     var selectedNumber: Int = 0
     var currentButton: CustomButton!
     var isHorizontal : Bool = true
@@ -205,6 +208,8 @@ class MainController : UIViewController, UITextFieldDelegate{
         setupTextFieldDidChange()
         // clear the 'O's off the grid
         buttonStore.clearTitleText()
+        // set background image
+        assignbackground()
         
         // keyboard sync
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -212,10 +217,26 @@ class MainController : UIViewController, UITextFieldDelegate{
         
         // highlight horizontal button
         horizontalButton.backgroundColor = UIColor.yellow
+        hintLabel.backgroundColor = UIColor(red: 104/255, green: 118/255, blue: 129/255, alpha: 0.7)
+        titleLabel.backgroundColor = UIColor(red: 104/255, green: 118/255, blue: 129/255, alpha: 0.7)
+
         
         // testing
         buttonStore.loadLevel(levelStore.levelOneString())
         buttonStore.loadCornerNumber(levelStore.numberPosition)
+    }
+    
+    func assignbackground(){
+        let background = UIImage(named: "background")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
     }
     
     
@@ -232,6 +253,9 @@ class MainController : UIViewController, UITextFieldDelegate{
             buttonStore.removeHighlights()
             buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
         }
+        if let button = currentButton {
+            button.textField.becomeFirstResponder()
+        }
     }
     @IBAction func verticalPressed(_ sender: Any) {
         isHorizontal = false
@@ -245,6 +269,9 @@ class MainController : UIViewController, UITextFieldDelegate{
             let identifier : String = button.accessibilityIdentifier ?? ""
             buttonStore.removeHighlights()
             buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
+        }
+        if let button = currentButton {
+            button.textField.becomeFirstResponder()
         }
     }
     
@@ -292,10 +319,22 @@ class MainController : UIViewController, UITextFieldDelegate{
             
             // set currentButton to this one
             currentButton = button
-            if (button.number != 0){
-                selectedNumber = button.number
-                
+            
+            let parentButton = buttonStore.findButtonWithNumber(currentButton: currentButton, isHorizontal: isHorizontal)
+            
+            if parentButton.number == 0 {
+                hintLabel.text = "Hint"
+            } else {
+                if isHorizontal{
+                    let hint = levelStore.levelOneHorizontalHint[parentButton.number]
+                    hintLabel.text = hint
+                } else {
+                    let hint = levelStore.levelOneVerticalHint[parentButton.number]
+                    hintLabel.text = hint
+                }
             }
+            // generate hint
+            // find the corresponding number if number == 0
         }
         return true
     }
