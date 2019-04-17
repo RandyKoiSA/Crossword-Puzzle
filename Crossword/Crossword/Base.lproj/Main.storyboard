@@ -13,13 +13,13 @@
         <!--CrossWord-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainController" customModule="Crossword" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="game" id="BYZ-38-t0r" customClass="MainController" customModule="Crossword" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="G1Z-bc-Cqo">
-                                <rect key="frame" x="0.0" y="108.5" width="414" height="390"/>
+                                <rect key="frame" x="0.0" y="64.5" width="414" height="390"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="XMu-cW-X7K">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
@@ -2875,7 +2875,7 @@
                                 <viewLayoutGuide key="safeArea" id="xud-Ca-FXm"/>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crossword #1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLd-yn-t2G">
-                                <rect key="frame" x="0.0" y="88" width="414" height="20.5"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3119,21 +3119,74 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1859" y="21"/>
+            <point key="canvasLocation" x="1280" y="21"/>
+        </scene>
+        <!--Menu Controller-->
+        <scene sceneID="3D5-CC-g7s">
+            <objects>
+                <viewController storyboardIdentifier="menu" id="0IT-a9-8Dc" customClass="MenuController" customModule="Crossword" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kTE-CU-fLd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jF0-D1-B0x">
+                                <rect key="frame" x="132" y="612" width="150" height="100"/>
+                                <color key="backgroundColor" red="0.2724058687" green="0.40659014869999999" blue="0.56708042510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Xu5-b7-RHF"/>
+                                    <constraint firstAttribute="height" constant="100" id="fdx-hg-0UO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <state key="normal" title="Play">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="Y98-hb-GaJ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crossword Lite" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pua-Vy-P8o">
+                                <rect key="frame" x="0.0" y="124" width="414" height="50"/>
+                                <color key="backgroundColor" red="0.2724058687" green="0.40659014869999999" blue="0.56708042510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="lGr-pz-Ena"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="W5L-f1-nLX" firstAttribute="trailing" secondItem="Pua-Vy-P8o" secondAttribute="trailing" id="EzI-rQ-rSO"/>
+                            <constraint firstItem="Pua-Vy-P8o" firstAttribute="leading" secondItem="W5L-f1-nLX" secondAttribute="leading" id="Tup-qr-ILb"/>
+                            <constraint firstItem="Pua-Vy-P8o" firstAttribute="top" secondItem="W5L-f1-nLX" secondAttribute="top" constant="80" id="dpB-6K-Ux1"/>
+                            <constraint firstItem="Pua-Vy-P8o" firstAttribute="leading" secondItem="W5L-f1-nLX" secondAttribute="leading" id="dvW-qa-0be"/>
+                            <constraint firstItem="W5L-f1-nLX" firstAttribute="bottom" secondItem="jF0-D1-B0x" secondAttribute="bottom" constant="150" id="mg8-DW-FoX"/>
+                            <constraint firstItem="Pua-Vy-P8o" firstAttribute="trailing" secondItem="W5L-f1-nLX" secondAttribute="trailing" id="tJf-VC-XjX"/>
+                            <constraint firstItem="jF0-D1-B0x" firstAttribute="centerX" secondItem="kTE-CU-fLd" secondAttribute="centerX" id="vCW-Iq-saY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="W5L-f1-nLX"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eDi-z4-LN3"/>
+                    <connections>
+                        <outlet property="playButton" destination="jF0-D1-B0x" id="l54-BI-A4E"/>
+                        <outlet property="titleLabel" destination="Pua-Vy-P8o" id="V3Z-il-thd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fq7-y0-ofi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="521.73913043478262" y="20.758928571428569"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OSe-DG-nwm">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HNQ-4V-etY" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="navigation" automaticallyAdjustsScrollViewInsets="NO" id="HNQ-4V-etY" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Tto-kf-29S">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4VL-ut-L2R"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9z0-Pf-hog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

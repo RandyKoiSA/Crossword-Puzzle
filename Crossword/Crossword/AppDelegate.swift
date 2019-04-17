@@ -18,15 +18,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
     
         // Create a ButtonStore
-        let buttonStore = ButtonStore()
-        let levelStore = LevelStore()
+        // let buttonStore = ButtonStore()
+        // let levelStore = LevelStore()
         
+        let game = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "game")
+        let menu = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menu")
+        
+        let navController : UINavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "navigation") as! UINavigationController
+        navController.setViewControllers([menu, game], animated: false)
+        navController.popViewController(animated: false)
+        window?.rootViewController = navController
+        //window?.rootViewController = navController
         // Access the MainController and set its buttonStore
-        let navController = window!.rootViewController as! UINavigationController
+        //let navController = window!.rootViewController as! UINavigationController
         
-        let mainController = navController.topViewController as! MainController
-        mainController.buttonStore = buttonStore
-        mainController.levelStore = levelStore
+        // let mainController = navController.topViewController as! MainController
+        // mainController.buttonStore = buttonStore
+        // mainController.levelStore = levelStore
+        
         return true
     }
 

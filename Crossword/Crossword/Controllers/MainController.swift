@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainController : UIViewController, UITextFieldDelegate{
+class MainController : UIViewController, UITextFieldDelegate{    
     var buttonStore : ButtonStore = ButtonStore()
     var levelStore : LevelStore = LevelStore()
     
@@ -251,12 +251,12 @@ class MainController : UIViewController, UITextFieldDelegate{
         if let button = currentButton {
             let identifier : String = button.accessibilityIdentifier ?? ""
             buttonStore.removeHighlights()
-            buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
-        }
-        if let button = currentButton {
             button.textField.becomeFirstResponder()
+            buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
+            updateHint(currentButton: currentButton, isHorizontal: isHorizontal)
         }
     }
+    
     @IBAction func verticalPressed(_ sender: Any) {
         isHorizontal = false
         horizontalButton.isEnabled = true
@@ -268,10 +268,10 @@ class MainController : UIViewController, UITextFieldDelegate{
         if let button = currentButton {
             let identifier : String = button.accessibilityIdentifier ?? ""
             buttonStore.removeHighlights()
-            buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
-        }
-        if let button = currentButton {
             button.textField.becomeFirstResponder()
+            buttonStore.highlightRowColumn(identifier: identifier, isHorizontal)
+            updateHint(currentButton: currentButton, isHorizontal: isHorizontal)
+
         }
     }
     
@@ -320,23 +320,27 @@ class MainController : UIViewController, UITextFieldDelegate{
             // set currentButton to this one
             currentButton = button
             
-            let parentButton = buttonStore.findButtonWithNumber(currentButton: currentButton, isHorizontal: isHorizontal)
-            
-            if parentButton.number == 0 {
-                hintLabel.text = "Hint"
-            } else {
-                if isHorizontal{
-                    let hint = levelStore.levelOneHorizontalHint[parentButton.number]
-                    hintLabel.text = hint
-                } else {
-                    let hint = levelStore.levelOneVerticalHint[parentButton.number]
-                    hintLabel.text = hint
-                }
-            }
+            updateHint(currentButton: currentButton, isHorizontal: isHorizontal)
             // generate hint
             // find the corresponding number if number == 0
         }
         return true
+    }
+    
+    func updateHint(currentButton: CustomButton, isHorizontal: Bool){
+        let parentButton = buttonStore.findButtonWithNumber(currentButton: currentButton, isHorizontal: isHorizontal)
+        
+        if parentButton.number == 0 {
+            hintLabel.text = "Hint"
+        } else {
+            if isHorizontal{
+                let hint = levelStore.levelOneHorizontalHint[parentButton.number]
+                hintLabel.text = hint
+            } else {
+                let hint = levelStore.levelOneVerticalHint[parentButton.number]
+                hintLabel.text = hint
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
